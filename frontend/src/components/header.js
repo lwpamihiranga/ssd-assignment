@@ -1,10 +1,17 @@
 import React from 'react';
 
-const Header = () => {
+const Header = ({ handleLogin }) => {
     return (
-        <div>
-            <p>Header Component</p>
-        </div>
+        <nav className="navbar navbar-light bg-light justify-content-between">
+            <a className="navbar-brand" href="#">
+                BLOG
+            </a>
+            <div className="cform-inline">
+                <button className="fb connect" onClick={handleLogin}>
+                    Authenticate with Facebook
+                </button>
+            </div>
+        </nav>
     );
 };
 
