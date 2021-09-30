@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const connectDb = require('./config/db');
 
 // initialize env
 dotenv.config();
@@ -14,6 +15,9 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors());
+
+// connect the db
+connectDb();
 
 app.use('/api', (req, res, next) => {
     res.status(200).json({
