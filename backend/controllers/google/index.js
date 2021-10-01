@@ -30,3 +30,17 @@ exports.autthencticateController = (req, res) => {
         url,
     });
 };
+
+// save token credentials in the backend
+exports.saveContoller = (req, res) => {
+    let code = req.query.code;
+    let token;
+    if (code) {
+        oauth2Client.getToken(code).then(({ tokens }) => {
+            token = tokens;
+            oauth2Client.setCredentials(tokens);
+
+            return res.json({ token });
+        });
+    }
+};
