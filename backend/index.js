@@ -8,6 +8,9 @@ const connectDb = require('./config/db');
 // initialize env
 dotenv.config();
 
+// routes
+const post = require('./routes/post/index.js');
+
 // initialize express
 const app = express();
 
@@ -18,6 +21,9 @@ app.use(cors());
 
 // connect the db
 connectDb();
+
+// register routes
+app.use('/api', post);
 
 app.use('/api', (req, res, next) => {
     res.status(200).json({
