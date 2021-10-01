@@ -1,16 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 
 import Header from '../components/header';
 
 function Post() {
     let history = useHistory();
+    const baseUrl = process.env.REACT_APP_FACEBOOK_BASE_URL;
+    const pageId = process.env.REACT_APP_FACEBOOK_PAGE_ID;
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
     const [userAccessToken, setUserAccessToken] = useState(null);
+    const [pageAccessToken, setPageAccessToken] = useState(null);
     const [postTitle, setPostTitle] = useState(null);
     const [postBody, setPostBody] = useState(null);
     const [postImageUrl, setPostImageUrl] = useState(null);
     const [errorMesage, setErrorMessage] = useState('');
+
+    useEffect(() => {
+        if (userAccessToken) {
+            //get page access token
+            axios
+                .get(
+                    `${baseUrl}/${pageId}?fields=access_token&access_token=${userAccessToken}`
+                )
+                .then((response) => {
+                    console.log(response);
+                    setPageAccessToken(response.data.access_token);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+    }, [userAccessToken, baseUrl, pageId]);
 
     const handleLogin = () => {
         // use fb sdk to generate the url to get permission and send the request
