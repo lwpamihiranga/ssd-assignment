@@ -10,6 +10,7 @@ dotenv.config();
 
 // routes
 const post = require('./routes/post/index.js');
+const google = require('./routes/google/index');
 
 // initialize express
 const app = express();
@@ -24,6 +25,7 @@ connectDb();
 
 // register routes
 app.use('/api', post);
+app.use('/api', google);
 
 app.use('/api', (req, res, next) => {
     res.status(200).json({
