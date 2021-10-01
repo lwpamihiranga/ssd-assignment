@@ -1,12 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/post', (req, res, next) => {
-    res.status(200).json({
-        result: {
-            message: '/api/post route',
-        },
-    });
-});
+// controllers
+const {
+    getAllPostContoller,
+    savePostController,
+} = require('../../controllers/post');
+
+router.get('/post', getAllPostContoller);
+router.post('/post', savePostController);
 
 module.exports = router;
