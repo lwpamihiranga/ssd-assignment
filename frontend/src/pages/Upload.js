@@ -8,6 +8,37 @@ function Upload() {
 
     const [pdfs, setPdfs] = useState([]);
 
+    useEffect(() => {
+        const search = window.location.search;
+        const params = new URLSearchParams(search);
+        const code = params.get('code');
+
+        // send the code to backend to get credentials when redirected after sign in
+        if (code) {
+            axios
+                .get(`${backendUrl}/api/google/save?code=${code}`)
+                .then((response) => {
+                    console.log(response);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+
+        // get the stored post pdf data form db
+        axios
+            .get(`${backendUrl}/api/post`)
+            .then((response) => {
+                console.log(response.data.data);
+                if (response.data.data) {
+                    setPdfs(response.data.data);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, [backendUrl]);
+
     const handleLogin = () => {
         // get the url to request access and redirect
         axios
