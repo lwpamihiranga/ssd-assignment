@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import Header from '../components/header';
 
 function Post() {
+    const handleLogin = () => {};
+
     return (
         <>
-            <p>Post Page View</p>
+            <Header handleLogin={handleLogin} />
         </>
     );
 }
