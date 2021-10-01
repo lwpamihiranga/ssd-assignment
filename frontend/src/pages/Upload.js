@@ -1,11 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 
 function Upload() {
     let history = useHistory();
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
     const [pdfs, setPdfs] = useState([]);
 
-    const handleLogin = () => {};
+    const handleLogin = () => {
+        // get the url to request access and redirect
+        axios
+            .get(`${backendUrl}/api/google/authenticate`)
+            .then((response) => {
+                console.log('google authenticate request url:', response);
+
+                // redirect to google authenticate page
+                window.location.assign(`${response.data.url}`);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
 
     const handleUpload = (fileName) => {};
 
