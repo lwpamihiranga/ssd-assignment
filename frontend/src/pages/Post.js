@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+
 import Header from '../components/header';
 
 function Post() {
+    let history = useHistory();
+
     const [postTitle, setPostTitle] = useState(null);
     const [postBody, setPostBody] = useState(null);
     const [postImageUrl, setPostImageUrl] = useState(null);
@@ -83,6 +87,18 @@ function Post() {
                             )}
                         </div>
                     </form>
+                </div>
+                <div className="row mt-5">
+                    <div className="col text-rigth">
+                        <button
+                            type="button"
+                            className="btn btn-secondary"
+                            onClick={() => {
+                                history.push('/upload');
+                            }}>
+                            View Generated PDFs
+                        </button>
+                    </div>
                 </div>
             </div>
         </>
