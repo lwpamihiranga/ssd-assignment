@@ -1,12 +1,15 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/google/', (req, res) => {
-    res.status(200).json({
-        result: {
-            message: '/api/google route',
-        },
-    });
-});
+// controllers
+const {
+    autthencticateController,
+    saveContoller,
+    uploadController,
+} = require('../../controllers/google');
+
+router.get('/google/authenticate', autthencticateController);
+router.get('/google/save', saveContoller);
+router.post('/google/upload', uploadController);
 
 module.exports = router;
