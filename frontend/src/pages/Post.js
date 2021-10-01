@@ -6,12 +6,27 @@ import Header from '../components/header';
 function Post() {
     let history = useHistory();
 
+    const [userAccessToken, setUserAccessToken] = useState(null);
     const [postTitle, setPostTitle] = useState(null);
     const [postBody, setPostBody] = useState(null);
     const [postImageUrl, setPostImageUrl] = useState(null);
     const [errorMesage, setErrorMessage] = useState('');
 
-    const handleLogin = () => {};
+    const handleLogin = () => {
+        // use fb sdk to generate the url to get permission and send the request
+        window.FB.login(
+            function (response) {
+                // handle the response
+                console.log(`Login response:`, response);
+                if (response.authResponse)
+                    setUserAccessToken(response.authResponse.accessToken);
+            },
+            {
+                // scopes to request permission
+                scope: 'public_profile,email,pages_manage_posts,pages_read_engagement,pages_show_list',
+            }
+        );
+    };
 
     const publishPost = (event) => {
         event.preventDefault();
