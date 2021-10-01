@@ -55,6 +55,7 @@ function Upload() {
     };
 
     const handleUpload = (fileName) => {
+        // invode the backend url with resource to upload file using oauth token
         axios
             .post(`${backendUrl}/api/google/upload`, {
                 fileName: fileName,
