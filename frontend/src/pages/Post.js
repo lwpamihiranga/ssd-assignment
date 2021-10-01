@@ -52,6 +52,36 @@ function Post() {
 
     const publishPost = (event) => {
         event.preventDefault();
+
+        if (!userAccessToken) setErrorMessage('To Upload Log with FaceBook');
+
+        let post = `==== ${postTitle} ==== ${postBody}`;
+
+        axios
+            .post(
+                `${baseUrl}/${pageId}/feed?message=${post}&link=${postImageUrl}&access_token=${pageAccessToken}`
+            )
+            .then((response) => {
+                console.log(response);
+                alert('Published to FB Page');
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+            .then(() => {
+                axios
+                    .post(`${backendUrl}/api/post`, {
+                        title: postTitle,
+                        body: postBody,
+                        url: postImageUrl,
+                    })
+                    .then((response) => {
+                        console.log('Generated the pdf: ', response);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            });
     };
 
     return (
