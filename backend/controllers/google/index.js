@@ -44,3 +44,26 @@ exports.saveContoller = (req, res) => {
         });
     }
 };
+
+// upload resource to google drive using oauth
+exports.uploadController = (req, res) => {
+    const drive = google.drive({
+        version: 'v3',
+        auth: oauth2Client,
+    });
+
+    drive.files
+        .create({
+            requestBody: {
+                name: `${req.body.fileName}`,
+            },
+            media: {
+                body: fs.createReadStream(
+                    `./uploads/pdfs/${req.body.fileName}`
+                ),
+            },
+        })
+        .then((result) => {
+            return res.json(req.file);
+        });
+};
