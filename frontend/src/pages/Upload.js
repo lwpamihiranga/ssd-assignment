@@ -54,7 +54,19 @@ function Upload() {
             });
     };
 
-    const handleUpload = (fileName) => {};
+    const handleUpload = (fileName) => {
+        axios
+            .post(`${backendUrl}/api/google/upload`, {
+                fileName: fileName,
+            })
+            .then((response) => {
+                console.log(response);
+                alert('PDF uploaded to Google Drive!');
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
 
     return (
         <div className="container">
