@@ -156,7 +156,7 @@ function Post() {
               onClick={() => {
                 history.push('/upload');
               }}>
-              View Generated PDFs
+              View Post List
             </button>
           </div>
         </div>
