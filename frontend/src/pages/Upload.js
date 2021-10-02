@@ -9,6 +9,8 @@ function Upload() {
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   const [pdfs, setPdfs] = useState([]);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [errorMesage, setErrorMessage] = useState('');
 
   useEffect(() => {
     const search = window.location.search;
@@ -20,6 +22,7 @@ function Upload() {
       axios
         .get(`${backendUrl}/api/google/save?code=${code}`)
         .then((response) => {
+          setIsAuthenticated(true);
           console.log(response);
         })
         .catch((err) => {
@@ -57,18 +60,22 @@ function Upload() {
   };
 
   const handleUpload = (fileName) => {
-    // invode the backend url with resource to upload file using oauth token
-    axios
-      .post(`${backendUrl}/api/google/upload`, {
-        fileName: fileName,
-      })
-      .then((response) => {
-        console.log(response);
-        alert('PDF uploaded to Google Drive!');
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (!isAuthenticated) {
+      setErrorMessage('Please Sign in with Google!');
+    } else {
+      // invode the backend url with resource to upload file using oauth token
+      axios
+        .post(`${backendUrl}/api/google/upload`, {
+          fileName: fileName,
+        })
+        .then((response) => {
+          console.log(response);
+          alert('PDF uploaded to Google Drive!');
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   return (
@@ -76,7 +83,18 @@ function Upload() {
       <GoogleHeader handleLogin={handleLogin} />
       <div className="container">
         <h3 className="text-center">Upload PDF to Google Drive</h3>
-        <div className="row"></div>
+        <div className="row">
+          {errorMesage && (
+            <p
+              style={{
+                marginTop: '30px',
+                color: 'red',
+                fontWeight: 'bold',
+              }}>
+              {errorMesage}
+            </p>
+          )}
+        </div>
         <div className="container mt-5">
           <table className="table">
             <thead>
