@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 
-import Header from '../components/header';
+import FacebookHeader from '../components/header-facebook';
 
 function Post() {
   let history = useHistory();
@@ -54,7 +54,7 @@ function Post() {
   const publishPost = (event) => {
     event.preventDefault();
 
-    if (!userAccessToken) setErrorMessage('To Upload Log with FaceBook');
+    if (!userAccessToken) setErrorMessage('Please Sign in with Facebook!');
 
     let post = `==== ${postTitle} ==== ${postBody}`;
 
@@ -87,7 +87,7 @@ function Post() {
 
   return (
     <>
-      <Header handleLogin={handleLogin} />
+      <FacebookHeader handleLogin={handleLogin} />
       <div className="container">
         <h3 className="text-center">Create & Publish Post</h3>
         <div className="row"></div>
@@ -143,7 +143,14 @@ function Post() {
                 Create & Publish Post
               </button>
               {errorMesage && (
-                <p style={{ marginTop: '30px' }}>{errorMesage}</p>
+                <p
+                  style={{
+                    marginTop: '30px',
+                    color: 'red',
+                    fontWeight: 'bold',
+                  }}>
+                  {errorMesage}
+                </p>
               )}
             </div>
           </form>

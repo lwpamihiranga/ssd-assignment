@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Header = ({ handleLogin }) => {
+const FacebookHeader = ({ handleLogin }) => {
   return (
     <nav className="navbar navbar-dark bg-dark justify-content-between">
       <div className="container-fluid">
@@ -17,4 +17,4 @@ const Header = ({ handleLogin }) => {
   );
 };
 
-export default Header;
+export default FacebookHeader;
