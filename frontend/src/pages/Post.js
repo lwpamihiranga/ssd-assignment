@@ -65,7 +65,7 @@ function Post() {
         )
         .then((response) => {
           console.log(response);
-          alert('Published to FB Page');
+          alert('Post has been published successfully!');
         })
         .catch((err) => {
           console.log(err);
