@@ -70,7 +70,7 @@ function Upload() {
         })
         .then((response) => {
           console.log(response);
-          alert('PDF uploaded to Google Drive!');
+          alert('PDF version has been uploaded to your Google Drive!');
         })
         .catch((err) => {
           console.log(err);
