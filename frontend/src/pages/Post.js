@@ -89,7 +89,7 @@ function Post() {
     <>
       <Header handleLogin={handleLogin} />
       <div className="container">
-        <h3 className="text-center">Publish a Post to FB Page</h3>
+        <h3 className="text-center">Create & Publish Post</h3>
         <div className="row"></div>
         <div className="container mt-5">
           <form>
